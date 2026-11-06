@@ -3,47 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>penyiraman otomatis kartarusa02 - Penyiram Otomatis</title>
+    <title>Smart Irrigation Dashboard - Penyiram Otomatis</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Firebase SDK Compat -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
 </head>
-<body class="bg-slate-900 font-sans min-h-screen p-4 md:p-6">
+<body class="bg-slate-100 font-sans min-h-screen p-4 md:p-6">
 
     <div class="max-w-6xl mx-auto">
-        <!-- Header -->
-        <header class="bg-yellow-400 text-white p-6 rounded-2xl shadow-lg mb-6 flex flex-col md:flex-row justify-between items-center">
+        <!-- Header (Gold #FFD700 style) -->
+        <header style="background-color: #FFD700;" class="text-slate-900 p-6 rounded-2xl shadow-lg mb-6 flex flex-col md:flex-row justify-between items-center border-b-4 border-amber-600">
             <div>
-                <h1 class="text-2xl font-bold flex items-center gap-2">🌿 penyiraman otomatis kartarusa02</h1>
-                <p class="text-emerald-100 text-sm mt-1">Sistem Pemantauan & Penyiraman Tanaman Otomatis (2x Sehari)</p>
+                <h1 class="text-2xl font-bold flex items-center gap-2">🌿 Smart Irrigation Dashboard</h1>
+                <p class="text-slate-800 text-sm mt-1">Sistem Pemantauan & Penyiraman Tanaman Otomatis (2x Sehari)</p>
             </div>
-            <div class="mt-4 md:mt-0 flex items-center gap-3 bg-emerald-700 px-4 py-2 rounded-xl text-sm shadow-inner">
-                <span id="status-indicator" class="w-3 h-3 rounded-full bg-gray-300 animate-pulse"></span>
-                <span id="device-status-text" class="font-semibold">Menghubungkan...</span>
-                <span class="text-emerald-300 text-xs border-l border-emerald-500 pl-3" id="live-clock">--:--:--</span>
+            <div class="mt-4 md:mt-0 flex items-center gap-3 bg-white/80 px-4 py-2 rounded-xl text-sm shadow-inner border border-amber-300">
+                <span id="status-indicator" class="w-3 h-3 rounded-full bg-gray-400 animate-pulse"></span>
+                <span id="device-status-text" class="font-semibold text-slate-900">Menghubungkan...</span>
+                <span class="text-amber-800 text-xs border-l border-amber-300 pl-3" id="live-clock">--:--:--</span>
             </div>
         </header>
 
         <!-- Grid Statistik Utama (4 Kolom) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
             <!-- Status Perangkat -->
-            <div class="bg-yellow-400 p-5 rounded-2xl shadow-sm border border-slate-200">
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
                 <p class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Status Perangkat</p>
                 <div class="flex justify-between items-end mt-2">
                     <div>
                         <h2 id="card-status" class="text-xl font-bold text-slate-800">Memuat...</h2>
-                        <p class="text-xs text-emerald-600 font-medium mt-1">Terhubung ke Firebase</p>
+                        <p class="text-xs text-amber-600 font-medium mt-1">Terhubung ke Firebase</p>
                     </div>
-                    <div class="bg-emerald-50 p-3 rounded-xl text-emerald-600">
+                    <div class="bg-amber-50 p-3 rounded-xl text-amber-600">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"></path></svg>
                     </div>
                 </div>
             </div>
 
             <!-- Kelembaban Tanah -->
-            <div class="bg-yellow-400 p-5 rounded-2xl shadow-sm border border-slate-200">
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
                 <p class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Kelembaban Tanah</p>
                 <div class="flex justify-between items-end mt-2">
                     <div>
@@ -57,7 +57,7 @@
             </div>
 
             <!-- Penyiraman Hari Ini -->
-            <div class="bg-yellow-400 p-5 rounded-2xl shadow-sm border border-slate-200">
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
                 <p class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Penyiraman Hari Ini</p>
                 <div class="flex justify-between items-end mt-2">
                     <div>
@@ -71,12 +71,12 @@
             </div>
 
             <!-- Terakhir Disiram -->
-            <div class="bg-yellow-400 p-5 rounded-2xl shadow-sm border border-slate-200">
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200">
                 <p class="text-slate-500 text-xs font-semibold uppercase tracking-wider">Terakhir Disiram</p>
                 <div class="flex justify-between items-end mt-2">
                     <div>
                         <h2 id="last-watered" class="text-sm font-bold text-slate-800">Belum ada data</h2>
-                        <p class="text-xs text-emerald-600 mt-1">Durasi: 60 Detik</p>
+                        <p class="text-xs text-amber-600 mt-1">Durasi: 60 Detik</p>
                     </div>
                     <div class="bg-purple-50 p-3 rounded-xl text-purple-500">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -94,10 +94,12 @@
                     <p class="text-xs text-slate-500 mb-4">Aktifkan pompa atau batalkan jadwal terdekat jika tanah sudah basah / hujan.</p>
                 </div>
                 <div class="flex flex-col gap-3">
-                    <button onclick="triggerManualWatering()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-2.5 px-4 rounded-xl transition duration-200 shadow-md flex items-center justify-center gap-2 text-sm">
+                    <!-- Tombol Siram Sekarang (Gold #FFD700) -->
+                    <button onclick="triggerManualWatering()" style="background-color: #FFD700;" class="text-slate-900 font-bold hover:opacity-90 py-2.5 px-4 rounded-xl transition duration-200 shadow-md flex items-center justify-center gap-2 text-sm border border-amber-400">
                         💧 Siram Sekarang (60 dtk)
                     </button>
-                    <button onclick="skipNextWatering()" class="w-full bg-red-500 hover:bg-red-600 text-white font-medium py-2.5 px-4 rounded-xl transition duration-200 shadow-md flex items-center justify-center gap-2 text-sm">
+                    <!-- Tombol Jangan Siram (Merah) -->
+                    <button onclick="skipNextWatering()" class="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-2.5 px-4 rounded-xl transition duration-200 shadow-md flex items-center justify-center gap-2 text-sm">
                         🚫 Jangan Siram (Skip Jadwal)
                     </button>
                 </div>
@@ -111,7 +113,7 @@
                 </div>
                 <div class="space-y-3" id="notification-container">
                     <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 flex items-start gap-3">
-                        <span class="text-emerald-500 mt-0.5">📩</span>
+                        <span class="text-amber-500 mt-0.5">📩</span>
                         <div>
                             <p class="text-sm font-semibold text-slate-700">Sistem Siap</p>
                             <p class="text-xs text-slate-500">Menunggu aktivitas penyiraman dari alat atau kontrol manual...</p>
@@ -132,22 +134,26 @@
                             <p class="font-semibold text-slate-800 text-sm">Penyiraman Pagi</p>
                             <p class="text-xs text-slate-500">Pukul 07:00 WIB</p>
                         </div>
-                        <span class="bg-emerald-100 text-emerald-700 text-xs px-2.5 py-1 rounded-full font-medium">Aktif</span>
+                        <span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-full font-medium">Aktif</span>
                     </div>
                     <div class="p-4 bg-slate-50 rounded-xl border border-slate-100 flex justify-between items-center">
                         <div>
                             <p class="font-semibold text-slate-800 text-sm">Penyiraman Sore</p>
                             <p class="text-xs text-slate-500">Pukul 16:00 WIB</p>
                         </div>
-                        <span class="bg-emerald-100 text-emerald-700 text-xs px-2.5 py-1 rounded-full font-medium">Aktif</span>
+                        <span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-full font-medium">Aktif</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Tabel Riwayat -->
+            <!-- Tabel Riwayat + Tombol Hapus -->
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 lg:col-span-2">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-bold text-slate-800">📜 Riwayat Penyiraman Database</h3>
+                    <!-- Tombol Hapus Riwayat -->
+                    <button onclick="clearHistoryLogs()" class="bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 text-xs font-semibold px-3 py-1.5 rounded-lg transition duration-200 flex items-center gap-1.5">
+                        🗑️ Hapus Riwayat
+                    </button>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse">
@@ -205,14 +211,14 @@
                 const isOnline = data.status !== 'OFFLINE';
                 statusText.innerText = isOnline ? 'ESP32 Online' : 'Offline';
                 cardStatus.innerText = isOnline ? 'Aktif (Online)' : 'Offline';
-                indicator.className = isOnline ? "w-3 h-3 rounded-full bg-emerald-400" : "w-3 h-3 rounded-full bg-red-500";
+                indicator.className = isOnline ? "w-3 h-3 rounded-full bg-amber-500" : "w-3 h-3 rounded-full bg-red-500";
                 
                 moistureText.innerText = (data.moisture !== undefined ? data.moisture : '65') + ' %';
                 lastWateredText.innerText = data.last_watered || 'Belum ada data';
             } else {
                 statusText.innerText = 'ESP32 Online';
                 cardStatus.innerText = 'Aktif (Online)';
-                indicator.className = "w-3 h-3 rounded-full bg-emerald-400";
+                indicator.className = "w-3 h-3 rounded-full bg-amber-500";
                 moistureText.innerText = '65 %';
             }
         });
@@ -233,8 +239,7 @@
                     const row = document.createElement('tr');
                     row.className = "border-b border-slate-50 hover:bg-slate-50";
                     
-                    // Beri warna badge status berbeda jika statusnya SKIP
-                    let badgeColor = "bg-emerald-100 text-emerald-700";
+                    let badgeColor = "bg-amber-100 text-amber-800";
                     if (log.status && log.status.includes("SKIP")) {
                         badgeColor = "bg-red-100 text-red-700";
                     }
@@ -255,7 +260,7 @@
                 const latest = logsArray[0];
                 notifContainer.innerHTML = `
                     <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 flex items-start gap-3">
-                        <span class="text-emerald-500 mt-0.5">📩</span>
+                        <span class="text-amber-600 mt-0.5">📩</span>
                         <div>
                             <p class="text-sm font-semibold text-slate-700">Aktivitas Terakhir</p>
                             <p class="text-xs text-slate-500">Waktu: ${latest.time || '-'} | Status: ${latest.status || 'SUCCESS'}</p>
@@ -292,13 +297,11 @@
             const now = new Date();
             const timeString = now.toLocaleString('id-ID');
 
-            // 1. Update status skip ke perangkat
             db.ref('device_status').update({
                 skip_next: true,
                 last_action_note: "Jadwal terdekat dilewati oleh pengguna"
             });
 
-            // 2. Tambahkan ke log riwayat agar muncul di tabel & notifikasi
             db.ref('watering_logs').push({
                 time: timeString,
                 duration: "0 dtk (Dilewati)",
@@ -306,6 +309,19 @@
             });
 
             alert('Perintah "Jangan Siram" diaktifkan: Jadwal terdekat dilewati dan tercatat di riwayat.');
+        }
+
+        // 5. Fungsi Tombol Hapus Riwayat Database
+        function clearHistoryLogs() {
+            if (confirm("Apakah Anda yakin ingin menghapus seluruh riwayat penyiraman di database?")) {
+                db.ref('watering_logs').remove()
+                    .then(() => {
+                        alert("Semua riwayat berhasil dibersihkan!");
+                    })
+                    .catch((error) => {
+                        alert("Gagal menghapus riwayat: " + error.message);
+                    });
+            }
         }
     </script>
 </body>
